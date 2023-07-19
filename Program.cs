@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using CoreWebAPI.Models;
+
 namespace CoreWebAPI
 {
     public class Program
@@ -10,6 +13,9 @@ namespace CoreWebAPI
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+            builder.Services.AddDbContext<CoreWebAPIContext>(opt => opt.UseInMemoryDatabase("Products"));
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
