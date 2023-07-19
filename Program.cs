@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using CoreWebAPI.Models;
+using CoreWebAPI.Data;
 
 namespace CoreWebAPI
 {

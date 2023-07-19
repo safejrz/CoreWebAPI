@@ -1,4 +1,5 @@
-﻿using CoreWebAPI.Models;
+﻿using CoreWebAPI.Data;
+using CoreWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
@@ -29,15 +30,20 @@ namespace CoreWebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProduct([Bind("Id,Name,Description,Price,Image")] Product product)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Products.Add(product);
-                await _context.SaveChangesAsync();
-
-                await _context.Products.AddAsync(product);
-                await _context.SaveChangesAsync();
-                return Ok(product);
+                if (ModelState.IsValid)
+                {
+                    await _context.Products.AddAsync(product);
+                    await _context.SaveChangesAsync();
+                    return Ok(product);
+                }
             }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
+
             return BadRequest();
         }
 
@@ -74,7 +80,7 @@ namespace CoreWebAPI.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    if (!ProductExists((int)product.Id))
                     {
                         return NotFound();
                     }

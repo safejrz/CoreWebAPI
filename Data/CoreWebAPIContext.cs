@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.CodeAnalysis;
+﻿using CoreWebAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace CoreWebAPI.Models
+namespace CoreWebAPI.Data
 {
     public class CoreWebAPIContext : DbContext
     {
